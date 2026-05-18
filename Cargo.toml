@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "RustyOS", "userspace/bin/test_user_process", "userspace/libc",
+    "xtask",
+]
+resolver = "3"
