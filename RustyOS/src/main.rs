@@ -17,7 +17,6 @@ mod cpuid;
 mod msr;
 mod process;
 mod framebuffer;
-mod user;
 
 mod font;
 
@@ -94,9 +93,7 @@ pub extern "C" fn kmain() {
     let idle = process::create_process(idle_process as *const () as u64, "idle", 0x4000);
     console_println!("Idle process created with PID {}", unsafe { (*idle).pid });
     let ramdisk = limine_imp::get_ram_disk().expect("No RAM disk module found");
-    let user_proc = process::loader::create_process_from_elf(ramdisk, "user_process").expect("Failed to create user process from ELF");
-    user::map_user_process(kernel_address, unsafe {(*user_proc).pml4t});
-    console_println!("User process created with PID {} -> entry point: {:p}", unsafe { (*user_proc).pid }, user::user_entry as *const () as *const u8);
+    let _user_proc = process::loader::create_process_from_elf(ramdisk, "user_process").expect("Failed to create user process from ELF");
     process::scheduler::init();
     process::scheduler::start();
 }

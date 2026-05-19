@@ -70,13 +70,4 @@ SECTIONS
         }
 
     kernel_end = .;
-
-    . = ALIGN(0x1000);
-        user_text_start = .;
-        .user_text : {
-            *(.user_text)
-        }
-        . = ALIGN(0x1000);
-        user_text_end = .;
-
 }
